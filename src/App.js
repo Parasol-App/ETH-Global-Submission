@@ -8,6 +8,7 @@ import {
   RemovedText,
   UnchangedText,
 } from "./components/ColorizedPart";
+import HighlightedTextArea from "./components/Input";
 
 const oldText = `hello world bitch es`;
 const newText = `hello world wtf bitches
@@ -23,6 +24,7 @@ function App() {
     <StyletronProvider value={engine}>
       <BaseProvider theme={LightTheme}>
         <div className="App">
+          <HighlightedTextArea />
           <p>original</p>
           <p>{oldText}</p>
 
