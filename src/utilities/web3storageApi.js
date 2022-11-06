@@ -30,7 +30,7 @@ export async function getCarFileByCID(cid) {
         headers: {
             Authorization: `Bearer ${token}`,
             accept: 'application/vnd.ipld.car'
-    }
+        }
     };
     try {
         const response = await Axios.get(`https://api.web3.storage/car/${cid}`, carConfig);
@@ -41,7 +41,7 @@ export async function getCarFileByCID(cid) {
     }
 }
 
-export async function getFileContent(cid){
+export async function getFileContent(cid) {
     try {
         const response = await Axios.get(`https://ipfs.io/ipfs/${cid}`);
         console.log(response);
@@ -55,12 +55,13 @@ export async function getFileContent(cid){
 
 export async function uploadFile(textData, name) {
     try {
-        // var token = process.env.APP_TOKEN
+        // TO DO: encode name
         const token = process.env.REACT_APP_STORAGE_TOKEN;
         const fileconfig = {
-            headers: { 
+            headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'X-NAME': `${name}`
             }
         };
         const data = textData;
