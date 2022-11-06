@@ -13,7 +13,7 @@ export const createFile = (data, name) => {
 
 export const createIpfsObj = async (file) => {
   try {
-    const ipfs = await IPFS.create();
+    const ipfs = await IPFS.create({ repo: 'ok' + Math.random() });
     const { cid } = await ipfs.add(file);
     console.info(cid);
     return cid;

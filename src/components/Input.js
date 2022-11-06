@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { styled, useStyletron } from "baseui";
 import { Select } from "baseui/select";
+import Difference from "./Difference";
 
 const HighlightedTextInput = styled("div", ({ $theme }) => ({
   width: "50%",
@@ -18,10 +19,9 @@ const HeaderContainer = styled("div", {
   justifyContent: "space-between",
 });
 
-const HighlightedTextArea = () => {
+const HighlightedTextArea = ({text, setText}) => {
   const [_, theme] = useStyletron();
-  const [code, setCode] = useState(`console.log("hello world")`);
-  const [value, setValue] = React.useState([{ label: "Javascript", id: "js" }]);
+  const [value, setValue] = useState([{ label: "Javascript", id: "js" }]);
 
   return (
     <HighlightedTextInput>
@@ -53,10 +53,10 @@ const HighlightedTextArea = () => {
       </HeaderContainer>
 
       <CodeEditor
-        value={code}
+        value={text}
         language={value[0].id || "js"}
         placeholder="Enter Code"
-        onChange={(evn) => setCode(evn.target.value)}
+        onChange={(evn) => setText(evn.target.value)}
         padding={15}
         style={{
           height: 600,
@@ -66,6 +66,7 @@ const HighlightedTextArea = () => {
             "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
         }}
       />
+      {/* <Difference oldText={evn} newText={new_text}/> */}
     </HighlightedTextInput>
   );
 };
