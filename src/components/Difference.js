@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDiffViewer from "react-diff-viewer";
 import { styled } from "baseui";
 import { Select } from "baseui/select";
-import { getUploads } from "../utilities/web3storageApi";
+import { getUploads, getFileContent } from "../utilities/web3storageApi";
 
 const DiffContainer = styled("div", ({ $theme }) => ({
   width: "50%",
@@ -39,9 +39,10 @@ const HeaderContainer = styled("div", {
 // }
 // `;
 
-const Difference = ({ oldText, newText }) => {
+const Difference = ({ oldTextCID, setOldTextCID, newText }) => {
   const [value, setValue] = useState([]);
   const [options, setOptions] = useState([]);
+  const [oldText, setOldText] = useState("hello this is empty");
 
   useEffect(() => {
     /**
@@ -56,11 +57,11 @@ const Difference = ({ oldText, newText }) => {
     const getCIDs = async () => {
       const uploads = await getUploads();
 
-      let data = []
+      let data = [];
       for (let i = 0; i < uploads.data.length; i++) {
-        data.push({ label: uploads.data[i]["cid"], id: String(i) })
+        data.push({ label: uploads.data[i]["cid"], id: String(i) });
       };
-      setOptions(data)
+      setOptions(data);
     };
     getCIDs();
 
@@ -75,7 +76,19 @@ const Difference = ({ oldText, newText }) => {
           options={options}
           value={value}
           placeholder="Select Hash"
-          onChange={(params) => setValue(params.value)}
+          onChange={(params) => {
+            setValue(params.value);
+            setOldTextCID(params.value);
+            const generateOldText = async () =>{
+              const tempText = await getFileContent(oldTextCID);
+              console.log("this is what I am getting:", tempText);
+              return String(tempText);
+            }
+            const oldTextfinal = generateOldText()
+            setOldText(oldTextfinal)
+            console.log("HIIIIIIIIIIII find me here:", oldTextCID, oldText)
+          }
+          }
           clearable={false}
           overrides={{
             Root: {
@@ -87,7 +100,7 @@ const Difference = ({ oldText, newText }) => {
         />
       </HeaderContainer>
       <ReactDiffViewer
-        oldValue={oldText}
+        oldValue = {oldText}
         newValue={newText}
         splitView={false}
       />

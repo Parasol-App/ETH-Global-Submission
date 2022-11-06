@@ -35,17 +35,17 @@ function App() {
     };
     runUploads();
   }, []);
-  const old_text = "console.log(\"hello world\")"
-  const new_text = "console.log(\"hello world pt2\")"
-  const [text, setText] = useState('hello world')
+  const old_text = "console.log(\"hello world\")";
+  const [oldTextCID, setOldTextCID] = useState("bafkreihwlw55xvztcaow7hox6lovwgtxsguclxicylbo4nh3t544lnyr3i");
+  const [newtext, setnewText] = useState('hello world');
   return (
     <StyletronProvider value={engine}>
       <BaseProvider theme={DarkTheme}>
         <div className="App">
           <Navbar account={account} setAccount={setAccount} />
           <Column>
-            <HighlightedTextArea text={text} setText={setText}/>
-            <Difference oldText={old_text} newText={text}/>
+            <HighlightedTextArea text={newtext} setText={setnewText}/>
+            <Difference oldTextCID={oldTextCID} setOldTextCID={setOldTextCID} newText={newtext}/>
           </Column>
         </div>
       </BaseProvider>

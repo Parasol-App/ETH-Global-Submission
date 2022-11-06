@@ -43,8 +43,8 @@ export async function getCarFileByCID(cid) {
 export async function getFileContent(cid){
     try {
         const response = await Axios.get(`https://ipfs.io/ipfs/${cid}`);
-        console.log(response);
-        return response;
+        console.log("HELLOOOO this is what I'm returning",response.data);
+        return response.data;
     } catch (error) {
         console.error(error);
     }
