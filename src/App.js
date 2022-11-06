@@ -8,7 +8,7 @@ import HighlightedTextArea from "./components/Input";
 import Difference from "./components/Difference";
 
 import { createFile, createIpfsObj } from "./utilities/ipfs";
-import { getUploads } from "./utilities/web3storageApi";
+import { uploadFile } from "./utilities/web3storageApi";
 
 const engine = new Styletron();
 
@@ -20,10 +20,10 @@ const Column = styled("div", ({ theme }) => ({
 
 function App() {
   useEffect(() => {
-    const fileObj = createFile("hello world, IPFS SUck ass", "eatMyShorts.js");
+    const textData = "This is a dummy file, IPFS sucks ass";
+    const fileName = "dummy.text";
     const runUploads = async () => {
-      const uploads = await getUploads();
-      console.log(uploads);
+      const uploads = await uploadFile(textData, fileName);
     };
     // const runDisShit = async () => {
     //   const ipfsObj = await createIpfsObj(fileObj);
