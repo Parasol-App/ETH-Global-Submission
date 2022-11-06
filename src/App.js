@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
-import { LightTheme, BaseProvider, styled, DarkTheme } from "baseui";
+import { BaseProvider, styled, DarkTheme } from "baseui";
 
 import Navbar from "./components/Navbar";
 import HighlightedTextArea from "./components/Input";
@@ -21,24 +21,20 @@ const Column = styled("div", ({ theme }) => ({
 }));
 
 function App() {
-  useEffect(() => {
-    // const fileObj = createFile("hello world, IPFS SUck ass", "eatMyShorts.js");
-    // const runUploads = async () => {
-    //   const uploads = await getUploads();
-    //   console.log(uploads);
-    // };
-    // const runDisShit = async () => {
-    //   const ipfsObj = await createIpfsObj(fileObj);
-    //   console.log(ipfsObj);
-    // };
+  const [account, setAccount] = useState();
 
-    // runUploads();
+  useEffect(() => {
+    const localAccount = localStorage.getItem("ETH_ACCOUNT");
+    if (localAccount) {
+      setAccount(localAccount);
+    }
   }, []);
+
   return (
     <StyletronProvider value={engine}>
       <BaseProvider theme={DarkTheme}>
         <div className="App">
-          <Navbar />
+          <Navbar account={account} setAccount={setAccount} />
           <Column>
             <HighlightedTextArea />
             <Difference />
