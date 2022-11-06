@@ -19,7 +19,7 @@ export default function CommitForm({ text }) {
         console.log(commitInfo);
         // upload 
         runUploads()
-        setCommitInfo({ name: "Commit Message" });
+        setCommitInfo({ name: "Commit Message", code: { text } });
     };
 
     return (
