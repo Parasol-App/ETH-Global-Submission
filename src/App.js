@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
-import { LightTheme, BaseProvider, styled } from "baseui";
+import { LightTheme, BaseProvider, styled, DarkTheme } from "baseui";
 
 import Navbar from "./components/Navbar";
 import HighlightedTextArea from "./components/Input";
@@ -30,7 +30,7 @@ function App() {
   }, []);
   return (
     <StyletronProvider value={engine}>
-      <BaseProvider theme={LightTheme}>
+      <BaseProvider theme={DarkTheme}>
         <div className="App">
           <Navbar />
           <Column>
