@@ -19,25 +19,25 @@ const HeaderContainer = styled("div", {
   justifyContent: "space-between",
 });
 
-const oldCode = `
-const a = 10
-const b = 10
-const c = () => console.log('foo')
+// const oldCode = `
+// const a = 10
+// const b = 10
+// const c = () => console.log('foo')
  
-if(a > 10) {
-  console.log('bar')
-}
+// if(a > 10) {
+//   console.log('bar')
+// }
  
-console.log('done')
-`;
-const newCode = `
-const a = 10
-const boo = 10
+// console.log('done')
+// `;
+// const newCode = `
+// const a = 10
+// const boo = 10
  
-if(a === 10) {
-  console.log('bar')
-}
-`;
+// if(a === 10) {
+//   console.log('bar')
+// }
+// `;
 
 const Difference = ({ oldText, newText }) => {
   const [value, setValue] = useState([]);
@@ -87,8 +87,8 @@ const Difference = ({ oldText, newText }) => {
         />
       </HeaderContainer>
       <ReactDiffViewer
-        oldValue={oldCode}
-        newValue={newCode}
+        oldValue={oldText}
+        newValue={newText}
         splitView={false}
       />
     </DiffContainer>

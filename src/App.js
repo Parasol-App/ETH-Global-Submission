@@ -8,9 +8,7 @@ import HighlightedTextArea from "./components/Input";
 import Difference from "./components/Difference";
 
 import { createFile, createIpfsObj } from "./utilities/ipfs";
-import { uploadFile, getCarFileByCID, getFileContent } from "./utilities/web3storageApi";
-
-
+import { uploadFile, getCarFileByCID, getFileContent, getUploads } from "./utilities/web3storageApi";
 
 const engine = new Styletron();
 
@@ -28,16 +26,26 @@ function App() {
     if (localAccount) {
       setAccount(localAccount);
     }
+    const textData = "This is a dummy file, IPFS sucks ass";
+    const fileName = "dummy.text";
+    const cid = "bafkreicgb2vxguzy2ktil6f5eubi62xtdfbutr7c6rovmquppzhl37akqu";
+    const runUploads = async () => {
+      const uploads = await getUploads();
+      console.log(uploads.data);
+    };
+    runUploads();
   }, []);
-
+  const old_text = "console.log(\"hello world\")"
+  const new_text = "console.log(\"hello world pt2\")"
+  const [text, setText] = useState('hello world')
   return (
     <StyletronProvider value={engine}>
       <BaseProvider theme={DarkTheme}>
         <div className="App">
           <Navbar account={account} setAccount={setAccount} />
           <Column>
-            <HighlightedTextArea />
-            <Difference />
+            <HighlightedTextArea text={text} setText={setText} />
+            <Difference oldText={old_text} newText={text} />
           </Column>
         </div>
       </BaseProvider>
