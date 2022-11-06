@@ -9,7 +9,7 @@ import Difference from "./components/Difference";
 
 import { createFile, createIpfsObj } from "./utilities/ipfs";
 import { uploadFile, getCarFileByCID, getFileContent, getUploads } from "./utilities/web3storageApi";
-
+import CommitForm from "./components/CommitForm";
 const engine = new Styletron();
 
 const Column = styled("div", ({ theme }) => ({
@@ -47,6 +47,7 @@ function App() {
             <HighlightedTextArea text={text} setText={setText} />
             <Difference oldText={old_text} newText={text} />
           </Column>
+          <CommitForm text={text} />
         </div>
       </BaseProvider>
     </StyletronProvider>
