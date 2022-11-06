@@ -55,12 +55,12 @@ const Difference = ({ oldText, newText }) => {
      */
     const getCIDs = async () => {
       const uploads = await getUploads();
-      console.log(uploads.data);
-      setOptions([
-        { label: uploads.data[0]["cid"], id: "0" },
-        { label: uploads.data[1]["cid"], id: "1" },
-        { label: uploads.data[2]["cid"], id: "2" },
-      ])
+
+      let data = []
+      for (let i = 0; i < uploads.data.length; i++) {
+        data.push({ label: uploads.data[i]["cid"], id: String(i) })
+      };
+      setOptions(data)
     };
     getCIDs();
 
