@@ -13,8 +13,8 @@ const sendNotification = async () => {
             type: 3, // target
             identityType: 2, // direct payload
             notification: {
-                title: `[SDK-TEST] notification TITLE:`,
-                body: `[sdk-test] notification BODY`
+                title: `wow someone posted to de-git`,
+                body: `what a degen`
             },
             payload: {
                 title: `[sdk-test] payload title`,
