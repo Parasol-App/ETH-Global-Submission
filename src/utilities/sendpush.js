@@ -2,7 +2,7 @@ import * as PushAPI from "@pushprotocol/restapi";
 import * as ethers from "ethers";
 
 
-const PK = 'your_channel_address_secret_key'; // channel private key
+const PK = 'c64b3b3269ed445ffc3aba392c24278692e93585e5c3394e0884dce3087701c1'; // channel private key
 const Pkey = `0x${PK}`;
 const signer = new ethers.Wallet(Pkey);
 
@@ -22,8 +22,8 @@ const sendNotification = async () => {
                 cta: '',
                 img: ''
             },
-            recipients: 'eip155:5:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', // recipient address
-            channel: 'eip155:5:0xD8634C39BBFd4033c0d3289C4515275102423681', // your channel address
+            recipients: 'eip155:5:0xB88460Bb2696CAb9D66013A05dFF29a28330689D', // recipient address
+            channel: 'eip155:5:0x650bB3f23F16FD615571E05d8dD323D475b2834E', // your channel address
             env: 'staging'
         });
 
