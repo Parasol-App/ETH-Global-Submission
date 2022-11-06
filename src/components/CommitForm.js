@@ -1,43 +1,39 @@
 import { useState } from "react";
+import { Textarea } from "baseui/textarea";
+import { Button } from "baseui/button";
+
 import { uploadFile } from "../utilities/web3storageApi";
 
 export default function CommitForm({ text }) {
+  const [commitName, setCommitName] = useState("");
 
-    const [commitInfo, setCommitInfo] = useState({
-        name: "",
-        code: text,
-    });
-    const handleChange = (event) => {
-        setCommitInfo({ ...commitInfo, [event.target.name]: event.target.value });
-    };
-    const runUploads = async () => {
-        const uploads = await uploadFile(commitInfo.code, commitInfo.name);
-    };
-    const handleSubmit = (event) => {
-        // prevents the submit button from refreshing the page
-        event.preventDefault();
-        console.log(commitInfo);
-        // upload 
-        runUploads()
-        setCommitInfo({ name: "Commit Message", code: { text } });
-    };
+  const handleChange = (event) => {
+    setCommitName(event.target.value);
+  };
 
-    return (
-        <div className="form-container">
-            <form onSubmit={handleSubmit} onChange={handleChange}>
-                <div>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Commit Message"
-                        value={commitInfo.name}
-                    />
-                </div>
+  const runUploads = async () => {
+    await uploadFile(text, commitName);
+  };
 
-                <div>
-                    <button style={{ color: 'black', backgroundColor: 'red' }}>Commit</button>
-                </div>
-            </form>
-        </div>
-    );
+  const handleSubmit = (event) => {
+    // prevents the submit button from refreshing the page
+    event.preventDefault();
+    // upload
+    runUploads();
+    setCommitName("");
+  };
+
+  return (
+    <div>
+      <Textarea
+        style={{ width: "50%" }}
+        placeholder={"Type your commit here!"}
+        value={commitName}
+        onChange={handleChange}
+        resize="both"
+        clearOnEscape
+      />
+      <Button onClick={handleSubmit}>Commit</Button>
+    </div>
+  );
 }

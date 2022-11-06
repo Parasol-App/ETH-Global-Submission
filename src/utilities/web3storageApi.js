@@ -7,8 +7,10 @@ const config = {
 };
 export async function getUploads() {
     try {
-        const response = await Axios.get('https://api.web3.storage/user/uploads?before=2020-07-27T17%3A32%3A28Z&page=1&size=10&sortBy=Date&sortOrder=Desc', config);
-        console.log(response);
+        const response = await Axios.get(
+          "https://api.web3.storage/user/uploads?before=2020-07-27T17%3A32%3A28Z&page=1&size=10&sortBy=Date&sortOrder=Desc",
+          config
+        );
         return response;
     } catch (error) {
         console.error(error);
@@ -43,7 +45,6 @@ export async function getCarFileByCID(cid) {
 export async function getFileContent(cid) {
     try {
         const response = await Axios.get(`https://ipfs.io/ipfs/${cid}`);
-        console.log(response);
         return response;
     } catch (error) {
         console.error(error);
