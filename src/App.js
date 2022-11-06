@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
 import { LightTheme, BaseProvider } from "baseui";
@@ -20,6 +21,8 @@ const engine = new Styletron();
 function App() {
   const diff = calculateDiff(oldText, newText);
 
+  useEffect(() => {}, []);
+
   return (
     <StyletronProvider value={engine}>
       <BaseProvider theme={LightTheme}>
@@ -29,15 +32,15 @@ function App() {
           <p>{oldText}</p>
 
           <p>Diff</p>
-          {diff.colorized.map((parts) => {
+          {diff.colorized.map((parts, idx) => {
             if (parts.color === GREEN) {
-              return <AddedText text={parts.value} />;
+              return <AddedText key={idx} text={parts.value} />;
             }
             if (parts.color === RED) {
-              return <RemovedText text={parts.value} />;
+              return <RemovedText key={idx} text={parts.value} />;
             }
             if (parts.color === GRAY) {
-              return <UnchangedText text={parts.value} />;
+              return <UnchangedText key={idx} text={parts.value} />;
             }
 
             return null;
