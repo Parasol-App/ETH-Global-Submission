@@ -8,7 +8,7 @@ import HighlightedTextArea from "./components/Input";
 import Difference from "./components/Difference";
 
 import { createFile, createIpfsObj } from "./utilities/ipfs";
-import { getUploads } from "./utilities/web3storageApi";
+import { uploadFile, getCarFileByCID, getFileContent } from "./utilities/web3storageApi";
 
 
 
