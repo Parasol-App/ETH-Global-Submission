@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { styled } from "baseui";
+import { styled, useStyletron } from "baseui";
 import { Select } from "baseui/select";
 
 const HighlightedTextInput = styled("div", ({ $theme }) => ({
@@ -19,6 +19,7 @@ const HeaderContainer = styled("div", {
 });
 
 const HighlightedTextArea = () => {
+  const [_, theme] = useStyletron();
   const [code, setCode] = useState(`console.log("hello world")`);
   const [value, setValue] = React.useState([{ label: "Javascript", id: "js" }]);
 
@@ -60,7 +61,7 @@ const HighlightedTextArea = () => {
         style={{
           height: 600,
           fontSize: 12,
-          backgroundColor: "#f5f5f5",
+          backgroundColor: theme.colors.backgroundPrimary,
           fontFamily:
             "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
         }}

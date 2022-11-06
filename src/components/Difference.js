@@ -1,6 +1,5 @@
 import React from "react";
-import { calculateDiff, RED, GREEN, GRAY } from "../utilities/comparison";
-import { AddedText, RemovedText, UnchangedText } from "./ColorizedPart";
+import ReactDiffViewer from "react-diff-viewer";
 import { styled } from "baseui";
 
 const DiffContainer = styled("div", ({ $theme }) => ({
@@ -8,28 +7,39 @@ const DiffContainer = styled("div", ({ $theme }) => ({
   padding: $theme.sizing.scale100,
 }));
 
-const oldText = `hello world bitch es`;
-const newText = `hello world wtf bitches
- ok but is this the right approach to the problem?
+const Title = styled("div", ({ $theme }) => ({
+  ...$theme.typography.DisplaySmall,
+}));
+
+const oldCode = `
+const a = 10
+const b = 10
+const c = () => console.log('foo')
+ 
+if(a > 10) {
+  console.log('bar')
+}
+ 
+console.log('done')
+`;
+const newCode = `
+const a = 10
+const boo = 10
+ 
+if(a === 10) {
+  console.log('bar')
+}
 `;
 
-const Difference = ({ text }) => {
-  const diff = calculateDiff(oldText, newText);
+const Difference = ({ oldText, newText }) => {
   return (
     <DiffContainer>
-      {diff.colorized.map((parts, idx) => {
-        if (parts.color === GREEN) {
-          return <AddedText key={idx} text={parts.value} />;
-        }
-        if (parts.color === RED) {
-          return <RemovedText key={idx} text={parts.value} />;
-        }
-        if (parts.color === GRAY) {
-          return <UnchangedText key={idx} text={parts.value} />;
-        }
-
-        return null;
-      })}
+      <Title>Diff</Title>
+      <ReactDiffViewer
+        oldValue={oldCode}
+        newValue={newCode}
+        splitView={false}
+      />
     </DiffContainer>
   );
 };

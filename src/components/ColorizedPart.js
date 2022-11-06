@@ -1,22 +1,30 @@
 import React from "react";
 import { RED, GREEN } from "../utilities/comparison";
+import { styled } from "baseui";
+
+const Text = styled("span", ({ $theme }) => {
+  console.log($theme.typography.font200);
+  return {
+    ...$theme.typography.font400,
+  };
+});
 
 export const RemovedText = ({ text }) => {
   return (
-    <span style={{ color: RED, backgroundColor: "rgba(255,0,0,0.5)" }}>
+    <Text style={{ color: RED, backgroundColor: "rgba(255,0,0,0.5)" }}>
       {text}
-    </span>
+    </Text>
   );
 };
 
 export const AddedText = ({ text }) => {
   return (
-    <span style={{ color: GREEN, backgroundColor: "rgba(0,255,0,0.5)" }}>
+    <Text style={{ color: GREEN, backgroundColor: "rgba(0,255,0,0.5)" }}>
       {text}
-    </span>
+    </Text>
   );
 };
 
 export const UnchangedText = ({ text }) => {
-  return <span>{text}</span>;
+  return <Text>{text}</Text>;
 };
