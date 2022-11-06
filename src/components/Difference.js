@@ -17,15 +17,15 @@ const Difference = ({ text }) => {
   const diff = calculateDiff(oldText, newText);
   return (
     <DiffContainer>
-      {diff.colorized.map((parts) => {
+      {diff.colorized.map((parts, idx) => {
         if (parts.color === GREEN) {
-          return <AddedText text={parts.value} />;
+          return <AddedText key={idx} text={parts.value} />;
         }
         if (parts.color === RED) {
-          return <RemovedText text={parts.value} />;
+          return <RemovedText key={idx} text={parts.value} />;
         }
         if (parts.color === GRAY) {
-          return <UnchangedText text={parts.value} />;
+          return <UnchangedText key={idx} text={parts.value} />;
         }
 
         return null;

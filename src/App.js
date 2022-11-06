@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import HighlightedTextArea from "./components/Input";
 import Difference from "./components/Difference";
 
+import { createFile, createIpfsObj } from "./utilities/ipfs";
+
 const engine = new Styletron();
 
 const Column = styled("div", ({ theme }) => ({
@@ -16,6 +18,16 @@ const Column = styled("div", ({ theme }) => ({
 }));
 
 function App() {
+  useEffect(() => {
+    const fileObj = createFile("hello world, IPFS SUck ass", "eatMyShorts.js");
+
+    const runDisShit = async () => {
+      const ipfsObj = await createIpfsObj(fileObj);
+      console.log(ipfsObj);
+    };
+
+    runDisShit();
+  }, []);
   return (
     <StyletronProvider value={engine}>
       <BaseProvider theme={LightTheme}>
