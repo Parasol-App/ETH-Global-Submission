@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDiffViewer from "react-diff-viewer";
 import { styled } from "baseui";
 import { Select } from "baseui/select";
+import { getUploads } from "../utilities/web3storageApi";
 
 const DiffContainer = styled("div", ({ $theme }) => ({
   width: "50%",
@@ -52,6 +53,18 @@ const Difference = ({ oldText, newText }) => {
      *
      *  fetch -> setOptions(<Options>)
      */
+    const getCIDs = async () => {
+      const uploads = await getUploads();
+      console.log(uploads.data);
+      setOptions([
+        { label: uploads.data[0]["cid"], id: "0" },
+        { label: uploads.data[1]["cid"], id: "1" },
+        { label: uploads.data[2]["cid"], id: "2" },
+      ])
+    };
+    getCIDs();
+
+
   }, []);
 
   return (
