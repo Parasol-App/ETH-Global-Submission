@@ -1,5 +1,5 @@
 import React from "react";
-import { RED, GREEN, GRAY } from "../utilities/comparison";
+import { RED, GREEN } from "../utilities/comparison";
 
 export const RemovedText = ({ text }) => {
   return (
