@@ -21,7 +21,7 @@ const HeaderContainer = styled("div", {
 const HighlightedTextArea = () => {
   const [_, theme] = useStyletron();
   const [code, setCode] = useState(`console.log("hello world")`);
-  const [value, setValue] = React.useState([{ label: "Javascript", id: "js" }]);
+  const [value, setValue] = useState([{ label: "Javascript", id: "js" }]);
 
   return (
     <HighlightedTextInput>
