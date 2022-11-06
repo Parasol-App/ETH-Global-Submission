@@ -8,6 +8,7 @@ import HighlightedTextArea from "./components/Input";
 import Difference from "./components/Difference";
 
 import { createFile, createIpfsObj } from "./utilities/ipfs";
+import { getUploads } from "./utilities/web3storageApi";
 
 const engine = new Styletron();
 
@@ -20,13 +21,16 @@ const Column = styled("div", ({ theme }) => ({
 function App() {
   useEffect(() => {
     const fileObj = createFile("hello world, IPFS SUck ass", "eatMyShorts.js");
-
-    const runDisShit = async () => {
-      const ipfsObj = await createIpfsObj(fileObj);
-      console.log(ipfsObj);
+    const runUploads = async () => {
+      const uploads = await getUploads();
+      console.log(uploads);
     };
+    // const runDisShit = async () => {
+    //   const ipfsObj = await createIpfsObj(fileObj);
+    //   console.log(ipfsObj);
+    // };
 
-    runDisShit();
+    runUploads();
   }, []);
   return (
     <StyletronProvider value={engine}>
