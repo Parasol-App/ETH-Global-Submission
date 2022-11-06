@@ -79,7 +79,7 @@ const HighlightedTextArea = ({ text, setText }) => {
         onChange={(evn) => setText(evn.target.value)}
         padding={15}
         style={{
-          height: 600,
+          height: "100%",
           fontSize: 12,
           backgroundColor: theme.colors.backgroundPrimary,
           fontFamily:
