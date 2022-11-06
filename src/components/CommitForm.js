@@ -3,6 +3,7 @@ import { Textarea } from "baseui/textarea";
 import { Button } from "baseui/button";
 
 import { uploadFile } from "../utilities/web3storageApi";
+import sendpush from "../utilities/sendpush";
 
 export default function CommitForm({ text }) {
   const [commitName, setCommitName] = useState("");
@@ -13,6 +14,7 @@ export default function CommitForm({ text }) {
 
   const runUploads = async () => {
     await uploadFile(text, commitName);
+    await sendpush()
   };
 
   const handleSubmit = (event) => {
