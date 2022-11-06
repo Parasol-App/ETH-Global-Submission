@@ -7,7 +7,7 @@ const config = {
 };
 export async function getUploads() {
     try {
-        const response = await Axios.get('https://api.web3.storage/user/uploads?before=2020-07-27T17%3A32%3A28Z&page=1&size=10', config);
+        const response = await Axios.get('https://api.web3.storage/user/uploads?before=2020-07-27T17%3A32%3A28Z&page=1&size=10&sortBy=Date&sortOrder=Desc', config);
         console.log(response);
         return response;
     } catch (error) {
