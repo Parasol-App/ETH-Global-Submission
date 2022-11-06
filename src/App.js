@@ -10,6 +10,7 @@ import Difference from "./components/Difference";
 import { createFile, createIpfsObj } from "./utilities/ipfs";
 import { uploadFile, getCarFileByCID, getFileContent, getUploads } from "./utilities/web3storageApi";
 import CommitForm from "./components/CommitForm";
+import sendpush from "./utilities/sendpush";
 const engine = new Styletron();
 
 const Column = styled("div", ({ theme }) => ({
@@ -26,11 +27,9 @@ function App() {
     if (localAccount) {
       setAccount(localAccount);
     }
-    const textData = "This is a dummy file, IPFS sucks ass";
-    const fileName = "dummy.text";
-    const cid = "bafkreicgb2vxguzy2ktil6f5eubi62xtdfbutr7c6rovmquppzhl37akqu";
+
     const runUploads = async () => {
-      const uploads = await getUploads();
+      const uploads = await sendpush();
       console.log(uploads.data);
     };
     runUploads();
