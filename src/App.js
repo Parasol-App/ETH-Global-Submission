@@ -10,6 +10,8 @@ import Difference from "./components/Difference";
 import { createFile, createIpfsObj } from "./utilities/ipfs";
 import { getUploads } from "./utilities/web3storageApi";
 
+
+
 const engine = new Styletron();
 
 const Column = styled("div", ({ theme }) => ({
@@ -20,17 +22,17 @@ const Column = styled("div", ({ theme }) => ({
 
 function App() {
   useEffect(() => {
-    const fileObj = createFile("hello world, IPFS SUck ass", "eatMyShorts.js");
-    const runUploads = async () => {
-      const uploads = await getUploads();
-      console.log(uploads);
-    };
+    // const fileObj = createFile("hello world, IPFS SUck ass", "eatMyShorts.js");
+    // const runUploads = async () => {
+    //   const uploads = await getUploads();
+    //   console.log(uploads);
+    // };
     // const runDisShit = async () => {
     //   const ipfsObj = await createIpfsObj(fileObj);
     //   console.log(ipfsObj);
     // };
 
-    runUploads();
+    // runUploads();
   }, []);
   return (
     <StyletronProvider value={engine}>
