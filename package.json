@@ -9,6 +9,7 @@
     "@uiw/react-textarea-code-editor": "^2.0.3",
     "baseui": "^12.2.0",
     "diff": "^5.1.0",
+    "ipfs-http-client": "^59.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-highlight-within-textarea": "^3.1.1",
@@ -17,6 +18,9 @@
     "styletron-engine-atomic": "^1.5.0",
     "styletron-react": "^6.1.0",
     "web-vitals": "^2.1.4"
+  },
+  "resolutions": {
+    "@babel/plugin-transform-async-to-generator": "7.17.12"
   },
   "scripts": {
     "start": "react-scripts start",
