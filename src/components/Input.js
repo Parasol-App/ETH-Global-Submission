@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { styled, useStyletron } from "baseui";
 import { Select } from "baseui/select";
-import Difference from "./Difference";
+
+import CommitForm from "./CommitForm";
+
+import { getUploads, getFileContent } from "../utilities/web3storageApi";
 
 const HighlightedTextInput = styled("div", ({ $theme }) => ({
   width: "50%",
@@ -19,14 +22,72 @@ const HeaderContainer = styled("div", {
   justifyContent: "space-between",
 });
 
-const HighlightedTextArea = ({text, setText}) => {
+const HighlightedTextArea = ({ text, setText }) => {
   const [_, theme] = useStyletron();
   const [value, setValue] = useState([{ label: "Javascript", id: "js" }]);
+  const [cidValue, setCidValue] = useState([]);
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    getCIDs();
+  }, []);
+
+  const getCIDs = async () => {
+    const uploads = await getUploads();
+    const data = uploads.data.map((upload, id) => ({
+      label: upload["cid"],
+      id,
+    }));
+    const latest = data[0];
+    setOptions(data);
+    setCidValue([latest]);
+    getFile(latest.label);
+  };
+
+  const getFile = async (cid) => {
+    const response = await getFileContent(cid);
+    setText(response.data);
+  };
 
   return (
     <HighlightedTextInput>
       <HeaderContainer>
         <Title>Code Editor</Title>
+        <Select
+          options={options}
+          value={cidValue}
+          placeholder="Select Hash"
+          onChange={async (params) => {
+            setCidValue(params.value);
+            await getFile(params.value[0].label);
+          }}
+          clearable={false}
+          overrides={{
+            Root: {
+              style: ({ $theme }) => ({
+                width: "30%",
+              }),
+            },
+          }}
+        />
+      </HeaderContainer>
+
+      <CodeEditor
+        value={text}
+        language={value[0].id || "js"}
+        placeholder="Enter Code"
+        onChange={(evn) => setText(evn.target.value)}
+        padding={15}
+        style={{
+          height: "100%",
+          fontSize: 12,
+          backgroundColor: theme.colors.backgroundPrimary,
+          fontFamily:
+            "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+        }}
+      />
+      <HeaderContainer>
+        <CommitForm text={text} />
         <Select
           options={[
             { label: "Javascript", id: "js" },
@@ -51,22 +112,6 @@ const HighlightedTextArea = ({text, setText}) => {
           }}
         />
       </HeaderContainer>
-
-      <CodeEditor
-        value={text}
-        language={value[0].id || "js"}
-        placeholder="Enter Code"
-        onChange={(evn) => setText(evn.target.value)}
-        padding={15}
-        style={{
-          height: 600,
-          fontSize: 12,
-          backgroundColor: theme.colors.backgroundPrimary,
-          fontFamily:
-            "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
-        }}
-      />
-      {/* <Difference oldText={evn} newText={new_text}/> */}
     </HighlightedTextInput>
   );
 };

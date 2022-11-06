@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDiffViewer from "react-diff-viewer";
 import { styled } from "baseui";
 import { Select } from "baseui/select";
-import { getUploads } from "../utilities/web3storageApi";
+import { getUploads, getFileContent } from "../utilities/web3storageApi";
 
 const DiffContainer = styled("div", ({ $theme }) => ({
   width: "50%",
@@ -19,29 +19,10 @@ const HeaderContainer = styled("div", {
   justifyContent: "space-between",
 });
 
-// const oldCode = `
-// const a = 10
-// const b = 10
-// const c = () => console.log('foo')
- 
-// if(a > 10) {
-//   console.log('bar')
-// }
- 
-// console.log('done')
-// `;
-// const newCode = `
-// const a = 10
-// const boo = 10
- 
-// if(a === 10) {
-//   console.log('bar')
-// }
-// `;
-
-const Difference = ({ oldText, newText }) => {
+const Difference = ({ newText }) => {
   const [value, setValue] = useState([]);
   const [options, setOptions] = useState([]);
+  const [renderedText, setRenderedText] = useState("");
 
   useEffect(() => {
     /**
@@ -53,19 +34,22 @@ const Difference = ({ oldText, newText }) => {
      *
      *  fetch -> setOptions(<Options>)
      */
-    const getCIDs = async () => {
-      const uploads = await getUploads();
-
-      let data = []
-      for (let i = 0; i < uploads.data.length; i++) {
-        data.push({ label: uploads.data[i]["cid"], id: String(i) })
-      };
-      setOptions(data)
-    };
     getCIDs();
-
-
   }, []);
+
+  const getCIDs = async () => {
+    const uploads = await getUploads();
+    const data = uploads.data.map((upload, id) => ({
+      label: upload["cid"],
+      id,
+    }));
+    setOptions(data);
+  };
+
+  const getFile = async (cid) => {
+    const response = await getFileContent(cid);
+    setRenderedText(response.data);
+  };
 
   return (
     <DiffContainer>
@@ -75,7 +59,10 @@ const Difference = ({ oldText, newText }) => {
           options={options}
           value={value}
           placeholder="Select Hash"
-          onChange={(params) => setValue(params.value)}
+          onChange={async (params) => {
+            setValue(params.value);
+            await getFile(params.value[0].label);
+          }}
           clearable={false}
           overrides={{
             Root: {
@@ -87,7 +74,7 @@ const Difference = ({ oldText, newText }) => {
         />
       </HeaderContainer>
       <ReactDiffViewer
-        oldValue={oldText}
+        oldValue={renderedText}
         newValue={newText}
         splitView={false}
       />
