@@ -8,7 +8,7 @@ import HighlightedTextArea from "./components/Input";
 import Difference from "./components/Difference";
 
 import { createFile, createIpfsObj } from "./utilities/ipfs";
-import { uploadFile } from "./utilities/web3storageApi";
+import { uploadFile, getCarFileByCID, getFileContent} from "./utilities/web3storageApi";
 
 const engine = new Styletron();
 
@@ -22,14 +22,11 @@ function App() {
   useEffect(() => {
     const textData = "This is a dummy file, IPFS sucks ass";
     const fileName = "dummy.text";
+    const cid = "bafkreicgb2vxguzy2ktil6f5eubi62xtdfbutr7c6rovmquppzhl37akqu";
     const runUploads = async () => {
-      const uploads = await uploadFile(textData, fileName);
+      const uploads = await getFileContent(cid);
+      console.log(uploads.data);
     };
-    // const runDisShit = async () => {
-    //   const ipfsObj = await createIpfsObj(fileObj);
-    //   console.log(ipfsObj);
-    // };
-
     runUploads();
   }, []);
   return (
